@@ -9,11 +9,6 @@ import Armes.Epee;
  *
  * @author regotiphaine
  */
-
-/**
- *
- * @author regotiphaine
- */
 public class Guerrier extends Personnage {
     private boolean aCheval;
 

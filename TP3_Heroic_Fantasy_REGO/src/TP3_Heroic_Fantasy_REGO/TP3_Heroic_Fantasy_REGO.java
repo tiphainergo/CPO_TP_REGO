@@ -1,18 +1,22 @@
-package TP3_Heroic_Fantasy_REGO;   
+package TP3_Heroic_Fantasy_REGO;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-    import Personnages.Magicien ;
+
+/**
+ *
+ * @author regotiphaine
+ */
+   import Personnages.Magicien ;
     import Personnages.Guerrier ;
     import Personnages.Personnage ;
     import Armes.Baton ;
     import Armes.Arme ;
     import Armes.Epee ;
-    import java.util.ArrayList ;
-
-    
-    
+    import java.util.ArrayList; 
+    import tp3_.etreVivant;
     
 public class TP3_Heroic_Fantasy_REGO {
         /**
@@ -88,3 +92,4 @@ public class TP3_Heroic_Fantasy_REGO {
     
 }
     
+
