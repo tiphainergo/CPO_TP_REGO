@@ -26,7 +26,7 @@ public abstract class Arme {
     public String getNom() {
         return nom;}
     
-    @Override
+  
     public String toString() {
         return "Nom arme : " + nom + ", Niveau : " + niveauAttaque;}
 }
