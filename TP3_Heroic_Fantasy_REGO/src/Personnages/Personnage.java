@@ -88,7 +88,7 @@ public abstract class Personnage implements etreVivant {
     }
 
     // Méthode pour afficher les détails du personnage
-    @Override
+  
     public String toString() {
         String resultat = "Nom: " + nom + ", Niveau de vie: " + niveauDeVie;
         if (armeEnMain != null) {
@@ -98,7 +98,7 @@ public abstract class Personnage implements etreVivant {
     }
 
     // Méthode pour simuler la fatigue du personnage
-    @Override
+    
     public void seFatiguer() {
         if (niveauDeVie > 10) {
             niveauDeVie -= 10;

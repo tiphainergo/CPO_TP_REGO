@@ -10,8 +10,6 @@ import Armes.Baton;
  * @author regotiphaine
  */
 
-
-
 public class Magicien extends Personnage {
 
     private final boolean estSorcier; // Un magicien peut être un sorcier ou non
