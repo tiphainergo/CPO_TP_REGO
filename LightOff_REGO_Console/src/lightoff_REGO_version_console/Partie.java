@@ -10,14 +10,15 @@ import java.util.Scanner;
  *
  * @author regotiphaine
  */
-
 public class Partie {
+
     private final GrilleDeCellules grille; // La grille de cellules lumineuses
     private int nbCoups; // Le nombre de coups joués par le joueur
 
     /**
      * Constructeur de la classe Partie.
-     * @param nbLignes Le nombre de lignes de la grille
+     *
+     * @param nbLignes   Le nombre de lignes de la grille
      * @param nbColonnes Le nombre de colonnes de la grille
      */
     public Partie(int nbLignes, int nbColonnes) {
@@ -45,11 +46,15 @@ public class Partie {
         while (!grille.cellulesToutesEteintes()) {
             System.out.println("Nombre de coups joués : " + nbCoups);
             System.out.println(grille); // Afficher l'état actuel de la grille
-            System.out.println("Activer soit une ligne (1) soit une colonne (2) soit la diagonale montante (3) soit la diagonale descendante (4)");
-            int coup = scanner.nextInt(); // Lire le choix de l'utilisateur
+            System.out.println("Choisissez une action :");
+            System.out.println("1. Activer une ligne");
+            System.out.println("2. Activer une colonne");
+            System.out.println("3. Activer la diagonale montante");
+            System.out.println("4. Activer la diagonale descendante");
+            int choix = scanner.nextInt(); // Lire le choix de l'utilisateur
 
             // Activer la ligne, la colonne ou la diagonale en fonction du choix de l'utilisateur
-            switch (coup) {
+            switch (choix) {
                 case 1:
                     System.out.println("Quelle ligne ?");
                     int ligne = scanner.nextInt();
@@ -68,7 +73,6 @@ public class Partie {
                     break;
                 default:
                     System.out.println("Choix invalide. Veuillez choisir entre 1, 2, 3 ou 4.");
-                    break;
             }
 
             nbCoups++; // Incrémenter le nombre de coups joués
@@ -79,8 +83,7 @@ public class Partie {
     }
 
     /**
-     * Méthode principale (point d'entrée du programme).
-     * @param args Les arguments de la ligne de commande (non utilisés ici)
+     * Méthode principale du programme. Crée une nouvelle partie avec une grille de 7x7 et lance la partie.
      */
     public static void main(String[] args) {
         Partie partie = new Partie(7, 7); // Création d'une nouvelle partie avec une grille de 7x7

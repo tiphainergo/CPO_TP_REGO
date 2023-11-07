@@ -12,17 +12,23 @@ import java.util.Random;
  */
 public class GrilleDeCellules {
 
-    private final CelluleLumineuse[][] matriceCellules; // La matrice de cellules lumineuses
-    private final int nbLignes; // Nombre de lignes dans la grille
-    private final int nbColonnes; // Nombre de colonnes dans la grille
+    private CelluleLumineuse[][] matriceCellules;
+    private int nbLignes;
+    private int nbColonnes;
 
-    // Constructeur pour créer une nouvelle grille de cellules lumineuses avec le nombre spécifié de lignes et de colonnes
-    public GrilleDeCellules(int nbLignes, int nbColonnes) {
-        this.nbLignes = nbLignes;
-        this.nbColonnes = nbColonnes;
+    /**
+     * Crée une nouvelle grille de cellules lumineuses avec un nombre spécifié
+     * de lignes et de colonnes.
+     *
+     * @param nbLignes1 Le nombre de lignes de la grille.
+     * @param nbColonnes1 Le nombre de colonnes de la grille.
+     */
+    public GrilleDeCellules(int nbLignes1, int nbColonnes1) {
+        nbLignes = nbLignes1;
+        nbColonnes = nbColonnes1;
+
         matriceCellules = new CelluleLumineuse[nbLignes][nbColonnes];
 
-        // Initialisation de la matrice avec des cellules éteintes
         for (int i = 0; i < nbLignes; i++) {
             for (int j = 0; j < nbColonnes; j++) {
                 matriceCellules[i][j] = new CelluleLumineuse();
@@ -30,109 +36,171 @@ public class GrilleDeCellules {
         }
     }
 
-    // Méthode pour éteindre toutes les cellules dans la grille
+    /**
+     * Permet d'éteindre toutes les cellules
+     */
     public void eteindreToutesLesCellules() {
-        for (CelluleLumineuse[] ligne : matriceCellules) {
-            for (CelluleLumineuse cellule : ligne) {
-                cellule.eteindre();
+        for (int i = 0; i < nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                matriceCellules[i][j].eteindre();
             }
         }
     }
 
-    // Méthode pour activer de manière aléatoire une ligne, une colonne ou une diagonale de cellules dans la grille
+    /**
+     * Active de manière aléatoire une ligne, une colonne ou une diagonale de
+     * cellules dans la grille. La sélection est basée sur un nombre aléatoire
+     * généré.
+     */
     public void activerLigneColonneOuDiagonaleAleatoire() {
         Random random = new Random();
-        int choix = random.nextInt(4); // Choix entre 0 et 3
+        int choix = random.nextInt(10);
+        switch (choix) {
+            case 0 -> {
 
-        if (choix == 0) {
-            // Activation d'une ligne aléatoire
-            int ligne = random.nextInt(nbLignes);
-            for (int j = 0; j < nbColonnes; j++) {
-                matriceCellules[ligne][j].allumer();
+                int ligne = random.nextInt(nbLignes);
+                for (int j = 0; j < nbColonnes; j++) {
+                    matriceCellules[ligne][j].allumer();
+                }
             }
-        } else if (choix == 1) {
-            // Activation d'une colonne aléatoire
-            int colonne = random.nextInt(nbColonnes);
-            for (int i = 0; i < nbLignes; i++) {
-                matriceCellules[i][colonne].allumer();
+            case 1 -> {
+
+                int colonne = random.nextInt(nbColonnes);
+                for (int i = 0; i < nbLignes; i++) {
+                    matriceCellules[i][colonne].allumer();
+                }
             }
-        } else if (choix == 2) {
-            // Activation de la diagonale descendante
-            for (int i = 0; i < Math.min(nbLignes, nbColonnes); i++) {
-                matriceCellules[i][i].allumer();
+            case 2 -> {
+
+                for (int i = 0; i < Math.min(nbLignes, nbColonnes); i++) {
+                    matriceCellules[i][i].allumer();
+                }
             }
-        } else {
-            // Activation de la diagonale montante
-            for (int i = 0; i < Math.min(nbLignes, nbColonnes); i++) {
-                matriceCellules[i][nbColonnes - i - 1].allumer();
+            case 3 -> {
+
+                for (int i = 0; i < Math.min(nbLignes, nbColonnes); i++) {
+                    matriceCellules[i][nbColonnes - i - 1].allumer();
+                }
+            }
+
+            default -> {
+
+                int direction = random.nextBoolean() ? 1 : -1;
+                if (direction == 1) {
+                    for (int i = 0; i < Math.min(nbLignes, nbColonnes); i++) {
+                        matriceCellules[i][i].allumer();
+                    }
+                } else {
+                    for (int i = 0; i < Math.min(nbLignes, nbColonnes); i++) {
+                        matriceCellules[i][nbColonnes - i - 1].allumer();
+                    }
+                }
             }
         }
     }
 
-    // Méthode pour mélanger la matrice de cellules aléatoirement pendant un certain nombre de tours
+    /**
+     * Génère un plateau de cellules lumineuses de manière aléatoire en un
+     * nombre spécifié de tours.
+     *
+     * @param nbTours Le nombre de tours pour mélanger la matrice de cellules.
+     */
     public void melangerMatriceAleatoirement(int nbTours) {
-        eteindreToutesLesCellules(); // On éteint toutes les cellules avant de les mélanger à nouveau
-        Random random = new Random();
 
-        // Réalisation du nombre de tours spécifié
+        for (int i = 0; i < nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                matriceCellules[i][j].eteindre();
+            }
+        }
+
         for (int tour = 0; tour < nbTours; tour++) {
             activerLigneColonneOuDiagonaleAleatoire();
         }
     }
 
-    // Méthode pour activer toutes les cellules d'une ligne spécifique
+    /**
+     * Active toutes les cellules d'une ligne de la grille spécifique.
+     *
+     * @param idLigne L'indice de la ligne à activer.
+     */
     public void activerLigneDeCellules(int idLigne) {
         for (int j = 0; j < nbColonnes; j++) {
             matriceCellules[idLigne][j].allumer();
         }
     }
 
-    // Méthode pour activer toutes les cellules d'une colonne spécifique
+    /**
+     * Active toutes les cellules d'une colonne de la grille spécifique.
+     *
+     * @param idColonne L'indice de la colonne à activer.
+     */
     public void activerColonneDeCellules(int idColonne) {
         for (int i = 0; i < nbLignes; i++) {
             matriceCellules[i][idColonne].allumer();
         }
     }
 
-    // Méthode pour activer la diagonale descendante de cellules
+    /**
+     * Active la diagonale descendante de cellules dans la grille.
+     */
     public void activerDiagonaleDescendante() {
         for (int i = 0; i < Math.min(nbLignes, nbColonnes); i++) {
             matriceCellules[i][i].allumer();
         }
     }
 
-    // Méthode pour activer la diagonale montante de cellules
+    /**
+     * Active la diagonale montante de cellules dans la grille.
+     */
     public void activerDiagonaleMontante() {
         for (int i = 0; i < Math.min(nbLignes, nbColonnes); i++) {
             matriceCellules[i][nbColonnes - i - 1].allumer();
         }
     }
 
-    // Méthode pour vérifier si toutes les cellules de la grille sont éteintes
+    /**
+     ** Vérifie si toutes les cellules de la grille sont éteintes.
+     *
+     * @return true si toutes les cellules sont éteintes, sinon false.
+     */
     public boolean cellulesToutesEteintes() {
-        for (CelluleLumineuse[] ligne : matriceCellules) {
-            for (CelluleLumineuse cellule : ligne) {
-                if (cellule.estAllumee()) {
+        for (int i = 0; i < nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                if (matriceCellules[i][j].etat()) {
                     return false;
                 }
             }
         }
-        return true; // Toutes les cellules sont éteintes
+        return true;
     }
 
-    // Redéfinition de la méthode toString() pour afficher l'état de la grille
+    /**
+     * Redéfinit la méthode toString() pour afficher l'état de la grille sous
+     * forme d'une représentation visuelle organisée.
+     *
+     * @return Une chaîne de caractères représentant l'état de la grille.
+     */
     @Override
     public String toString() {
         StringBuilder gridString = new StringBuilder();
 
-        // Construction de la représentation visuelle de la grille
-        for (int i = 0; i < nbLignes; i++) {
-            for (int j = 0; j < nbColonnes; j++) {
-                gridString.append(matriceCellules[i][j].estAllumee() ? " X " : " O ");
+        int ligneLabelLength = Integer.toString(nbLignes - 1).length();
+        int colonneLabelLength = Integer.toString(nbColonnes - 1).length();
+
+        gridString.append(" ".repeat(ligneLabelLength + 1));
+        for (int colonne = 0; colonne < nbColonnes; colonne++) {
+            gridString.append(String.format(" %" + (colonneLabelLength + 1) + "d", colonne));
+        }
+        gridString.append("\n");
+
+        for (int ligne = 0; ligne < nbLignes; ligne++) {
+            gridString.append(String.format("%" + ligneLabelLength + "d |", ligne));
+            for (int colonne = 0; colonne < nbColonnes; colonne++) {
+                gridString.append(matriceCellules[ligne][colonne].etat() ? " X " : " O ");
             }
-            gridString.append("\n"); // Nouvelle ligne après chaque ligne de cellules
+            gridString.append("\n");
         }
 
-        return gridString.toString(); // Retourne la représentation de la grille
+        return gridString.toString();
     }
 }
