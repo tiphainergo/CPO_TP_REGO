@@ -10,56 +10,60 @@ package lightoff_REGO_version_console;
  */
 public class CelluleLumineuse {
 
-    private boolean estAllumee; // true si allumée, false si éteinte
+   
+    private boolean etat; // Indique l'état de la cellule (allumée ou éteinte).
 
     /**
-     * Constructeur par défaut qui initialise l'état à "éteint" (false).
+     * Constructeur par défaut qui initialise l'état de la cellule à "éteint" (false).
      */
     public CelluleLumineuse() {
-        estAllumee = false;
+        etat = false;
     }
 
     /**
      * Méthode pour activer ou éteindre la cellule en inversant son état actuel.
-     */
-    public void inverserEtat() {
-        estAllumee = !estAllumee;
-    }
-
-    /**
-     * Méthode pour éteindre la cellule si elle est allumée.
-     */
-    public void eteindre() {
-        if (estAllumee) {
-            estAllumee = false;
-        }
-    }
-
-    /**
-     * Méthode pour allumer la cellule si elle est éteinte.
+     * Si la cellule est allumée, elle devient éteinte, et vice versa.
      */
     public void allumer() {
-        if (!estAllumee) {
-            estAllumee = true;
+        etat = !etat;
+    }
+
+    /**
+     * Méthode pour éteindre la cellule si elle est allumée. Si la cellule est déjà éteinte,
+     * cette méthode n'a aucun effet.
+     */
+    public void eteindre() {
+        if (etat) {
+            etat = false;
         }
     }
 
     /**
-     * Méthode pour vérifier si la cellule est actuellement allumée.
-     * @return true si la cellule est allumée, false si elle est éteinte.
+     * Méthode pour vérifier si la cellule est actuellement éteinte.
+     *
+     * @return true si la cellule est éteinte, false si elle est allumée.
      */
-    public boolean estAllumee() {
-        return estAllumee;
+    public boolean estEteinte() {
+        return !etat;
     }
 
     /**
-     * Redéfinition de la méthode toString pour afficher l'état de la cellule de manière
-     * lisible. Si la cellule est allumée, elle affiche "X", et si la cellule est éteinte,
-     * elle affiche "O".
+     * Méthode pour obtenir l'état actuel de la cellule.
+     *
+     * @return true si la cellule est allumée, false si elle est éteinte.
+     */
+    public boolean etat() {
+        return etat;
+    }
+
+    /**
+     * Redéfinition de la méthode toString pour afficher l'état de la cellule de manière lisible.
+     * Si la cellule est allumée, elle affiche "X", sinon elle affiche "O".
+     *
      * @return "X" si la cellule est allumée, "O" si elle est éteinte.
      */
     @Override
     public String toString() {
-        return estAllumee ? "X" : "O"; 
+        return etat ? "X" : "O";
     }
 }
