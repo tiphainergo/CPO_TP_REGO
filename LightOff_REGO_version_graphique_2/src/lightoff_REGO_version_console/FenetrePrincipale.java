@@ -62,12 +62,6 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         grille.melangerMatriceAleatoirement(10);
     }
 
-    private void desactiverBoutons() {
-
-        PanneauBoutonHorizontaux.setVisible(false);
-        PanneauBoutonVerticaux.setVisible(false);
-    }
-
     public void cellulesToutesEteintes() {
 
         if (grille.cellulesToutesEteintes()) {
@@ -75,7 +69,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
             JLabel messageLabel = new JLabel("La partie est finie!");
             messagePanel.add(messageLabel);
             messagePanel.setVisible(true);
-            desactiverBoutons();
+          
 
         } else {
 
