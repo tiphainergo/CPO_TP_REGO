@@ -5,6 +5,8 @@
 package lightoff_REGO_version_console;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
@@ -35,6 +37,19 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         this.pack();
         this.revalidate();
 
+
+        PanneauBoutonHorizontaux.setLayout(new GridLayout(1, nbColonnes));
+        getContentPane().add(PanneauBoutonHorizontaux, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, nbColonnes * 40, 1 * 40));
+        this.pack();
+        this.revalidate();
+
+
+      
+        this.grille = new GrilleDeCellules(nbLignes, nbColonnes);
+        initialiserPartie();
+        
+        PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes));
+
         for (int i = 0; i < nbLignes; i++) {
             for (int j = 0; j < nbColonnes; j++) {
                 CelluleGraphique bouton_cellule = new CelluleGraphique(grille.matriceCellules[i][j], 36, 36);
@@ -47,6 +62,23 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         grille.eteindreToutesLesCellules();
         grille.melangerMatriceAleatoirement(10);
     }
+    private void desactiverBoutons() {
+
+        PanneauBoutonHorizontaux.setVisible(false);
+        PanneauBoutonVerticaux.setVisible(false);
+    }
+
+    public void verifierGrilleEteinte() {
+
+        if (grille.cellulesToutesEteintes()) {
+         
+            desactiverBoutons();
+
+        } else {
+
+        }
+        repaint();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,10 +89,10 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        FenetreVictoire = new javax.swing.JPanel();
         PanneauBoutonVerticaux = new javax.swing.JPanel();
         PanneauGrille = new javax.swing.JPanel();
-        FenetreVictoire = new javax.swing.JPanel();
-        btnLigne0 = new javax.swing.JButton();
+        PanneauBoutonHorizontaux = new javax.swing.JPanel();
         btnLigne1 = new javax.swing.JButton();
         btnLigne2 = new javax.swing.JButton();
         btnLigne3 = new javax.swing.JButton();
@@ -70,25 +102,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         btnLigne7 = new javax.swing.JButton();
         btnLigne8 = new javax.swing.JButton();
         btnLigne9 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        javax.swing.GroupLayout PanneauBoutonVerticauxLayout = new javax.swing.GroupLayout(PanneauBoutonVerticaux);
-        PanneauBoutonVerticaux.setLayout(PanneauBoutonVerticauxLayout);
-        PanneauBoutonVerticauxLayout.setHorizontalGroup(
-            PanneauBoutonVerticauxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 41, Short.MAX_VALUE)
-        );
-        PanneauBoutonVerticauxLayout.setVerticalGroup(
-            PanneauBoutonVerticauxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(PanneauBoutonVerticaux, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, -1, -1));
-
-        PanneauGrille.setBackground(new java.awt.Color(102, 102, 156));
-        PanneauGrille.setPreferredSize(new java.awt.Dimension(500, 500));
+        btnLigne0 = new javax.swing.JButton();
 
         FenetreVictoire.setBackground(new java.awt.Color(102, 255, 204));
         FenetreVictoire.setForeground(new java.awt.Color(242, 242, 242));
@@ -104,32 +118,51 @@ public class FenetrePrincipale extends javax.swing.JFrame {
             .addGap(0, 116, Short.MAX_VALUE)
         );
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        javax.swing.GroupLayout PanneauBoutonVerticauxLayout = new javax.swing.GroupLayout(PanneauBoutonVerticaux);
+        PanneauBoutonVerticaux.setLayout(PanneauBoutonVerticauxLayout);
+        PanneauBoutonVerticauxLayout.setHorizontalGroup(
+            PanneauBoutonVerticauxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 46, Short.MAX_VALUE)
+        );
+        PanneauBoutonVerticauxLayout.setVerticalGroup(
+            PanneauBoutonVerticauxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(PanneauBoutonVerticaux, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, -1, 400));
+
+        PanneauGrille.setBackground(new java.awt.Color(102, 102, 156));
+        PanneauGrille.setPreferredSize(new java.awt.Dimension(500, 500));
+
+        javax.swing.GroupLayout PanneauBoutonHorizontauxLayout = new javax.swing.GroupLayout(PanneauBoutonHorizontaux);
+        PanneauBoutonHorizontaux.setLayout(PanneauBoutonHorizontauxLayout);
+        PanneauBoutonHorizontauxLayout.setHorizontalGroup(
+            PanneauBoutonHorizontauxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        PanneauBoutonHorizontauxLayout.setVerticalGroup(
+            PanneauBoutonHorizontauxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout PanneauGrilleLayout = new javax.swing.GroupLayout(PanneauGrille);
         PanneauGrille.setLayout(PanneauGrilleLayout);
         PanneauGrilleLayout.setHorizontalGroup(
             PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanneauGrilleLayout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(FenetreVictoire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
+            .addComponent(PanneauBoutonHorizontaux, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         PanneauGrilleLayout.setVerticalGroup(
             PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanneauGrilleLayout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addComponent(FenetreVictoire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addGap(47, 47, 47)
+                .addComponent(PanneauBoutonHorizontaux, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(313, Short.MAX_VALUE))
         );
 
         getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 400, 400));
-
-        btnLigne0.setText("btnLigne0");
-        btnLigne0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLigne0ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnLigne0, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 90, 30));
 
         btnLigne1.setText("btnLigne1");
         btnLigne1.addActionListener(new java.awt.event.ActionListener() {
@@ -202,6 +235,14 @@ public class FenetrePrincipale extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnLigne9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 90, 30));
+
+        btnLigne0.setText("btnLigne0");
+        btnLigne0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLigne0ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnLigne0, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 90, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -303,6 +344,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FenetreVictoire;
+    private javax.swing.JPanel PanneauBoutonHorizontaux;
     private javax.swing.JPanel PanneauBoutonVerticaux;
     private javax.swing.JPanel PanneauGrille;
     private javax.swing.JButton btnLigne0;
