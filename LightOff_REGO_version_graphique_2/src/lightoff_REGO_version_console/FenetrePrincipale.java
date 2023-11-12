@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -37,17 +39,14 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         this.pack();
         this.revalidate();
 
-
         PanneauBoutonHorizontaux.setLayout(new GridLayout(1, nbColonnes));
         getContentPane().add(PanneauBoutonHorizontaux, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, nbColonnes * 40, 1 * 40));
         this.pack();
         this.revalidate();
 
-
-      
         this.grille = new GrilleDeCellules(nbLignes, nbColonnes);
         initialiserPartie();
-        
+
         PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes));
 
         for (int i = 0; i < nbLignes; i++) {
@@ -62,16 +61,20 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         grille.eteindreToutesLesCellules();
         grille.melangerMatriceAleatoirement(10);
     }
+
     private void desactiverBoutons() {
 
         PanneauBoutonHorizontaux.setVisible(false);
         PanneauBoutonVerticaux.setVisible(false);
     }
 
-    public void verifierGrilleEteinte() {
+    public void cellulesToutesEteintes() {
 
         if (grille.cellulesToutesEteintes()) {
-         
+            JPanel messagePanel = new JPanel();
+            JLabel messageLabel = new JLabel("La partie est finie!");
+            messagePanel.add(messageLabel);
+            messagePanel.setVisible(true);
             desactiverBoutons();
 
         } else {
@@ -90,6 +93,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     private void initComponents() {
 
         FenetreVictoire = new javax.swing.JPanel();
+        jButton13 = new javax.swing.JButton();
         PanneauGrille = new javax.swing.JPanel();
         PanneauBoutonHorizontaux = new javax.swing.JPanel();
         PanneauBoutonVerticaux = new javax.swing.JPanel();
@@ -116,18 +120,26 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
 
-        FenetreVictoire.setBackground(new java.awt.Color(102, 255, 204));
+        FenetreVictoire.setBackground(new java.awt.Color(255, 255, 255));
         FenetreVictoire.setForeground(new java.awt.Color(242, 242, 242));
+
+        jButton13.setText("Bravo vous avez gagné !");
 
         javax.swing.GroupLayout FenetreVictoireLayout = new javax.swing.GroupLayout(FenetreVictoire);
         FenetreVictoire.setLayout(FenetreVictoireLayout);
         FenetreVictoireLayout.setHorizontalGroup(
             FenetreVictoireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 182, Short.MAX_VALUE)
+            .addGroup(FenetreVictoireLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jButton13)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         FenetreVictoireLayout.setVerticalGroup(
             FenetreVictoireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 116, Short.MAX_VALUE)
+            .addGroup(FenetreVictoireLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jButton13)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -428,7 +440,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        this.grille.activerColonneDeCellules(5);
+        this.grille.activerColonneDeCellules(6);
         repaint();
     }//GEN-LAST:event_jButton8ActionPerformed
 
@@ -488,9 +500,9 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
-       this.grille.activerDiagonaleDescendante();
+        this.grille.activerDiagonaleDescendante();
         repaint();
-        
+
     }//GEN-LAST:event_jButton12ActionPerformed
 
     /**
@@ -547,6 +559,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
